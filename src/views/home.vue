@@ -3,18 +3,18 @@
     <div class=" py-8 px-4 mt-6" style="min-height: calc(100vh - 5rem);">
         <div class="max-w-lg mx-auto">
             <!-- Header Card -->
-            <div class="bg-white rounded-2xl shadow-xl border-0 overflow-hidden mb-6">
-                <div class="bg-gradient-to-r from-indigo-600 to-blue-400 px-6 py-8 text-center">
-                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-file-invoice text-white text-2xl"></i>
+            <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden mb-6">
+                <div class="bg-white px-6 py-8 text-center">
+                    <div class="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-file-invoice text-blue-600 text-2xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-white mb-2">บันทึกการขึ้นสินค้า</h2>
-                    <p class="text-gray-100 text-sm">{{ formData.fullname }}</p>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">บันทึกการขึ้นสินค้า</h2>
+                    <p class="text-gray-900 text-sm">{{ formData.fullname }}</p>
                 </div>
             </div>
 
             <!-- Form Card -->
-            <div class="bg-white border border-gray-100 rounded-2xl shadow-xl border-0 p-8">
+            <div class="bg-white border border-gray-200 rounded-2xl shadow-xl p-8">
                 <form @submit.prevent="submitForm" class="space-y-6">
 
                     <div class="space-y-2">
@@ -40,21 +40,22 @@
                                         <div class="flex flex-col gap-1 text-sm">
                                             <div class="flex">
                                                 <span
-                                                    class="font-medium text-gray-900 flex-shrink-0 w-28">เลขที่ใบส่งของ :</span>
+                                                    class="font-medium text-gray-900 flex-shrink-0 w-28">เลขที่ใบส่งของ
+                                                    :</span>
                                                 <span class="font-normal text-gray-700 break-words">{{ docode.code
-                                                    }}</span>
+                                                }}</span>
                                             </div>
 
                                             <div v-if="docode.customerName" class="flex">
-                                                <span
-                                                    class="font-medium text-gray-900 flex-shrink-0 w-28">ลูกค้า :</span>
+                                                <span class="font-medium text-gray-900 flex-shrink-0 w-28">ลูกค้า
+                                                    :</span>
                                                 <span class="font-normal text-gray-700 break-words">{{
                                                     docode.customerName }}</span>
                                             </div>
 
                                             <div v-if="docode.projectCode && docode.projectAddress" class="flex">
-                                                <span
-                                                    class="font-medium text-gray-900 flex-shrink-0 w-28">หน่วยงาน :</span>
+                                                <span class="font-medium text-gray-900 flex-shrink-0 w-28">หน่วยงาน
+                                                    :</span>
                                                 <span class="font-normal text-gray-700 break-words">{{
                                                     docode.projectCode }} {{ docode.projectAddress }}</span>
                                             </div>
@@ -120,9 +121,9 @@
 
                     <!-- Action Buttons -->
                     <div class="flex space-x-3 pt-4">
-                        <button type="submit" class="cursor-pointer flex-1 bg-indigo-600 text-white font-medium py-2.5 px-4 rounded-lg 
-                                   hover:bg-gray-700 transition-colors duration-200 
-                                   focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                        <button type="submit" class="cursor-pointer flex-1 bg-blue-600 text-white font-medium py-2.5 px-4 rounded-lg 
+                                   hover:bg-blue-700 transition-colors duration-200 
+                                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                             บันทึก
                         </button>
 
@@ -177,6 +178,7 @@ export default {
         setData() {
             this.formData.fullname = localStorage.getItem("loadingJobFullname");
         },
+
         async searchDoCode() {
 
             if (!this.formData.doCode.trim()) {
