@@ -1,0 +1,20 @@
+{
+    "name": "LoadingJob",
+    "short_name": "LoadingJob",
+    "description": "Asia App Loading Job",
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "display": "standalone",
+    "lang": "en",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "/LoadingJob.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+
+    ]
+}
+
