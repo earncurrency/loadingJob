@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -22,7 +23,7 @@ export default {
       const randomDirection = this.directions[Math.floor(Math.random() * this.directions.length)]
 
       // Set the gradient class with blue shades
-      this.gradientClass = `${randomDirection} from-blue-50 via-white to-blue-100`
+      this.gradientClass = `${randomDirection} from-gray-50 via-white to-rose-50`
     }
   },
   mounted() {

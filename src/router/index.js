@@ -13,6 +13,11 @@ const router = createRouter({
             name: "home",
             component: () => import("../views/home.vue"),
         },
+        {
+            path: "/history",
+            name: "history",
+            component: () => import("../views/history.vue"),
+        },
     ],
 });
 router.beforeEach((to, from, next) => {
@@ -21,7 +26,7 @@ router.beforeEach((to, from, next) => {
     }
     const storedHash = localStorage.getItem("loadingJobHash");
     if (!storedHash) {
-        return next("/login"); 
+        return next("/login");
     }
     next();
 });

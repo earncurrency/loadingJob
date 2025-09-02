@@ -1,6 +1,6 @@
 <template>
     <navbar />
-    <div class=" py-8 px-4 mt-6" style="min-height: calc(100vh - 5rem);">
+    <div class=" py-8 px-4 mt-6" style="min-height: calc(100vh);">
         <div class="max-w-lg mx-auto">
             <!-- Header Card -->
             <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden mb-6">
@@ -9,7 +9,7 @@
                         <i class="fas fa-file-invoice text-blue-600 text-2xl"></i>
                     </div>
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">บันทึกการขึ้นสินค้า</h2>
-                    <p class="text-gray-900 text-sm">{{ formData.fullname }}</p>
+                    <p class="text-gray-900 text-sm">{{ formData.employeeName }}</p>
                 </div>
             </div>
 
@@ -23,41 +23,40 @@
                             เลขที่ใบส่งของ (KA)
                         </label>
                         <div class="relative w-full" ref="doCodeDropdown">
-                            <input type="text" v-model="formData.doCode" ref="inputDoCode" @input="searchDoCode"
-                                placeholder="กรุณากรอกเลขที่ใบส่งของ" class="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-xl 
+                            <input type="text" v-model="formData.doCode" @blur="formData.doCode = formData.tpmDoCode"
+                                ref="inputDoCode" @input="getListDelivery" placeholder="กรุณากรอกเลขที่ใบส่งของ" class="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-xl 
                                        focus:outline-none focus:ring-3 focus:ring-gray-500/20 focus:border-gray-500 
                                        transition-all duration-300 hover:border-gray-300">
 
-                            <div v-if="formData.doCode !== '' && openListDoCode"
-                                class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto"
+                            <div v-if="formData.doCode !== '' && openListDelivery"
+                                class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-auto overflow-y-auto"
                                 :style="{ top: '100%' }">
                                 <!-- กรณีพบลูกค้า -->
-                                <div v-if="results.length > 0">
-                                    <div v-for="docode in results" :key="docode.id"
-                                        @mousedown.prevent="selectDocode(docode)"
+                                <div v-if="listDelivery.length > 0">
+                                    <div v-for="detail in listDelivery" :key="detail.id"
+                                        @mousedown.prevent="selectDocode(detail)"
                                         class="px-3 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0">
 
                                         <div class="flex flex-col gap-1 text-sm">
-                                            <div class="flex">
-                                                <span
-                                                    class="font-medium text-gray-900 flex-shrink-0 w-28">เลขที่ใบส่งของ
+                                            <div v-if="detail.code" class="flex">
+                                                <span class="font-bold text-gray-900 flex-shrink-0 w-28">เลขที่ใบส่งของ
                                                     :</span>
-                                                <span class="font-normal text-gray-700 break-words">{{ docode.code
+                                                <span class="font-normal text-gray-700 break-words">{{ detail.code
                                                 }}</span>
                                             </div>
 
-                                            <div v-if="docode.customerName" class="flex">
-                                                <span class="font-medium text-gray-900 flex-shrink-0 w-28">ลูกค้า
+                                            <div v-if="detail.customerName" class="flex">
+                                                <span class="font-bold text-gray-900 flex-shrink-0 w-28">ลูกค้า
                                                     :</span>
                                                 <span class="font-normal text-gray-700 break-words">{{
-                                                    docode.customerName }}</span>
+                                                    detail.customerName }}</span>
                                             </div>
 
-                                            <div v-if="docode.projectCode && docode.projectAddress" class="flex">
-                                                <span class="font-medium text-gray-900 flex-shrink-0 w-28">หน่วยงาน
+                                            <div v-if="detail.projectCode && detail.projectAddress" class="flex">
+                                                <span class="font-bold text-gray-900 flex-shrink-0 w-28">หน่วยงาน
                                                     :</span>
                                                 <span class="font-normal text-gray-700 break-words">{{
-                                                    docode.projectCode }} {{ docode.projectAddress }}</span>
+                                                    detail.projectCode }} {{ detail.projectAddress }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -98,16 +97,54 @@
                             <i class="fas fa-car text-gray-600 mr-2"></i>
                             ทะเบียนรถ
                         </label>
-                        <div class="relative">
-                            <input type="text" v-model="formData.registration" ref="inputRegistration"
-                                placeholder="กรุณากรอกทะเบียนรถ" class="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-xl 
+                        <div class="relative w-full" ref="carDropdown">
+                            <input type="text" v-model="formData.licence_plate"
+                                @blur="formData.licence_plate = formData.tpmLicencePlate" ref="inputLicencePlate"
+                                @input="getListCar" placeholder="กรุณากรอกทะเบียนรถ" class="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-xl 
                                        focus:outline-none focus:ring-3 focus:ring-gray-500/20 focus:border-gray-500 
                                        transition-all duration-300 hover:border-gray-300">
+
+                            <div v-if="formData.licence_plate !== '' && openListCar"
+                                class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-auto overflow-y-auto"
+                                :style="{ top: '100%' }">
+                                <!-- กรณีพบลูกค้า -->
+                                <div v-if="listCar.length > 0">
+                                    <div v-for="car in listCar" :key="car.id" @mousedown.prevent="selectCar(car)"
+                                        class="px-3 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0">
+
+                                        <div class="flex flex-col gap-1 text-sm">
+                                            <div v-if="car.licence_plate" class="flex">
+                                                <span class="font-bold text-gray-900 flex-shrink-0 w-28">ทะเบียน
+                                                    :</span>
+                                                <span class="font-normal text-gray-700 break-words">{{ car.licence_plate
+                                                }}</span>
+                                            </div>
+
+                                            <div v-if="car.carTypeTitle" class="flex">
+                                                <span class="font-bold text-gray-900 flex-shrink-0 w-28">ประเภทรถ
+                                                    :</span>
+                                                <span class="font-normal text-gray-700 break-words">{{
+                                                    car.carTypeTitle }}</span>
+                                            </div>
+
+                                            <div v-if="car.model" class="flex">
+                                                <span class="font-bold text-gray-900 flex-shrink-0 w-28">ยี่ห้อ
+                                                    :</span>
+                                                <span class="font-normal text-gray-700 break-words">{{
+                                                    car.model }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ไม่พบข้อมูลใบส่งของ -->
+                                <div v-else class="px-3 py-2 text-gray-500 text-sm text-center">ไม่พบข้อมูลใบส่งของ
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Additional Info Card -->
-                    <div class="bg-gradient-to-r from-gray-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
+                    <div :class="gradientClass" class="rounded-xl p-4 border border-blue-100">
                         <div class="flex items-center">
                             <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
                                 <i class="fas fa-info-circle text-blue-600 text-sm"></i>
@@ -154,76 +191,142 @@ import swl_modal from "@/components/swl_modal.vue";
 import navbar from "@/components/navbar.vue";
 
 export default {
-    components: { navbar, swl_modal },
+    components: { swl_modal, navbar },
     data() {
         return {
             formData: {
+                doID: 0,
                 doCode: "",
-                registration: "",
-                fullname: "",
+                tpmDoCode: "",
+                carID: 0,
+                licence_plate: "",
+                tpmLicencePlate: "",
+                employeeID: 0,
+                employeeName: "",
                 customerName: "",
                 projectCode: "",
                 projectAddress: "",
             },
             project: "",
-            results: [],
-            openListDoCode: false,
+
+            listDelivery: [],
+            openListDelivery: false,
+
+            listCar: [],
+            openListCar: false,
+
+            gradientClass: '',
+            directions: [
+                'bg-gradient-to-r', 'bg-gradient-to-l', 'bg-gradient-to-t',
+                'bg-gradient-to-b', 'bg-gradient-to-tr', 'bg-gradient-to-tl',
+                'bg-gradient-to-br', 'bg-gradient-to-bl'
+            ]
 
         };
     },
     mounted() {
         this.setData();
+        this.generateRandomGradient()
     },
     methods: {
         setData() {
-            this.formData.fullname = localStorage.getItem("loadingJobFullname");
+
+            const loadingJobHash = localStorage.getItem("loadingJobHash");
+            this.formData.employeeID = parseInt(loadingJobHash.split("-")[0]);
+
+            this.formData.employeeName = localStorage.getItem("loadingJobFullname");
         },
 
-        async searchDoCode() {
+        generateRandomGradient() {
+            // Randomly select a direction
+            const randomDirection = this.directions[Math.floor(Math.random() * this.directions.length)]
+
+            // Set the gradient class with blue shades
+            this.gradientClass = `${randomDirection} from-gray-50 via-white to-indigo-50`
+        },
+
+        async getListDelivery() {
 
             if (!this.formData.doCode.trim()) {
-                this.results = [];
-                this.openListDoCode = false;
+                this.listDelivery = [];
+                this.openListDelivery = false;
                 return;
             }
-            this.openListDoCode = true;
+            this.openListDelivery = true;
 
             try {
                 const response = await axios.get(
-                    "https://app.asiagroup1999.co.th/app/cst/delivery-fg?action=listDelivery&rows=10&doCode=" + this.formData.doCode
+                    "https://app.asiagroup1999.co.th/app/cst/delivery-fg?action=listDelivery&rows=3&doCode=" + this.formData.doCode
                 );
                 const data = response.data;
-                this.results = data.rows;
+                this.listDelivery = data.rows;
 
-                console.log("data :", this.results);
+                console.log("List Delivery :", this.listDelivery);
 
             } catch (error) {
                 console.error("Error :", error);
-                this.results = [];
+                this.listDelivery = [];
             }
         },
-        selectDocode(docode) {
-            this.formData.doCode = docode.code;
-            this.formData.customerName = docode.customerName;
-            this.formData.projectCode = docode.projectCode;
-            this.formData.projectAddress = docode.projectAddress;
-            this.project = docode.projectCode + ' ' + docode.projectAddress;
-            this.openListDoCode = false;
-            console.log("selected do code :", this.formData)
+        selectDocode(detail) {
+            this.formData.doID = detail.id;
+            this.formData.doCode = detail.code;
+            this.formData.tpmDoCode = detail.code;
+            this.formData.customerName = detail.customerName;
+            this.formData.projectCode = detail.projectCode;
+            this.formData.projectAddress = detail.projectAddress;
+            this.project = detail.projectCode + ' ' + detail.projectAddress;
+            this.openListDelivery = false;
+            console.log("selected do code :", detail)
         },
 
+        async getListCar() {
+
+            if (!this.formData.licence_plate.trim()) {
+                this.listCar = [];
+                this.openListCar = false;
+                return;
+            }
+            this.openListCar = true;
+
+            try {
+                const response = await axios.get(
+                    "https://app.asiagroup1999.co.th/app/trs/driver-order?action=listCar&rows=3&q=" + this.formData.licence_plate
+                );
+                const data = response.data;
+                this.listCar = data.rows;
+
+                console.log("List Car :", this.listCar);
+
+            } catch (error) {
+                console.error("Error :", error);
+                this.listCar = [];
+            }
+        },
+        selectCar(car) {
+            this.formData.carID = car.id;
+            this.formData.licence_plate = car.licence_plate;
+            this.formData.tpmLicencePlate = car.licence_plate;
+            this.openListCar = false;
+            console.log("selected car :", car)
+        },
 
         resetForm() {
+            this.formData.doID = 0;
             this.formData.doCode = "";
+            this.formData.tpmDoCode = "";
             this.formData.customerName = "";
             this.project = "";
             this.formData.projectCode = "";
             this.formData.projectAddress = "";
-            this.formData.registration = "";
+            this.formData.carID = 0
+            this.formData.licence_plate = "";
+            this.formData.tpmLicencePlate = "";
+            this.formData.employeeID = 0;
         },
-        submitForm() {
 
-            if (!this.formData.fullname) {
+        async submitForm() {
+            if (!this.formData.employeeID) {
                 this.$refs.swl_modal.showAlertModal({
                     swlIcon: "warning",
                     swlTitle: "ไม่พบผู้ใช้งาน",
@@ -234,20 +337,58 @@ export default {
             } else if (!this.formData.doCode) {
                 this.$refs.inputDoCode.focus();
                 return;
-            } else if (!this.formData.registration) {
-                this.$refs.inputRegistration.focus();
+            } else if (!this.formData.doID) {
+                this.$refs.inputDoCode.focus();
+                this.$refs.swl_modal.showAlertModal({
+                    swlIcon: "warning",
+                    swlTitle: "ไม่พบใบส่งของ",
+                    swlText: `กรุณากรอกเลขที่ใบส่งของ`,
+                });
+                return;
+            } else if (!this.formData.licence_plate) {
+                this.$refs.inputLicencePlate.focus();
                 return;
             }
-            // Submit logic here
-            this.$refs.swl_modal.showAlertModal({
-                swlIcon: "success",
-                swlTitle: "บันทึกสำเร็จ",
-                swlText: `บันทึกใบส่งของเลขที่ ${this.formData.doCode} เรียบร้อยแล้ว`,
-            });
-            console.log('Form data:', this.formData);
-            this.resetForm();
+
+            try {
+                const dataLoadingJob = {
+                    action: "insertLoadingJob",
+                    doID: this.formData.doID,
+                    doCode: this.formData.doCode,
+                    carID: this.formData.carID,
+                    licencePlate: this.formData.licence_plate,
+                    employeeID: this.formData.employeeID,
+                };
+                console.log("submit :", dataLoadingJob)
+
+                const submitResponse = await axios.post("https://app.asiagroup1999.co.th/app/cst/loadingJob", dataLoadingJob);
+                // console.log("submitResponse :", submitResponse)
+                if (submitResponse.data.success == true) {
+                    this.$refs.swl_modal.showAlertModal({
+                        swlIcon: "success",
+                        swlTitle: "บันทึกสำเร็จ",
+                        swlText: `บันทึกใบส่งของเรียบร้อยแล้ว`,
+                    });
+                    this.resetForm();
+                } else {
+                    this.$refs.swl_modal.showAlertModal({
+                        swlIcon: "error",
+                        swlTitle: "บันทึกไม่สำเร็จ",
+                        swlText: `เกิดข้อผิดพลาดในการบันทึก`,
+                    });
+                    console.error("การบันทึกไม่สำเร็จ:", submitResponse );
+                }
+            } catch (error) {
+                this.$refs.swl_modal.showAlertModal({
+                    swlIcon: "error",
+                    swlTitle: "เกิดข้อผิดพลาด",
+                    swlText: `ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้`,
+                });
+                console.error("เกิดข้อผิดพลาดในการบันทึก:", error);
+            }
 
         }
+
     }
 };
 </script>
