@@ -40,8 +40,8 @@ export default defineConfig({
 
     __IMG_ICON__: JSON.stringify(
       process.env.NODE_ENV === 'production'
-        ? 'http://192.168.1.15/loadingJob/image/asia/'
-        : 'http://localhost:5173/src/assets/image/asia/'
+        ? '/'
+        : '/'
     ),
   }
 })
