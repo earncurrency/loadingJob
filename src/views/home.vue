@@ -6,11 +6,11 @@
             <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden mb-6">
                 <div class="bg-white px-6 py-8 text-center">
                     <div
-                        class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4  border border-gray-200 shadow-sm">
+                        class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4  border border-gray-200 shadow-base">
                         <i class="fas fa-file-invoice text-gray-600 text-2xl"></i>
                     </div>
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">บันทึกการขึ้นสินค้า</h2>
-                    <p v-if="formData.employeeName" class="text-gray-900 text-sm">{{ formData.employeeName }}</p>
+                    <p v-if="formData.employeeName" class="text-gray-900 text-base">{{ formData.employeeName }}</p>
                 </div>
             </div>
 
@@ -19,13 +19,13 @@
                 <form @submit.prevent="submitForm" class="space-y-6">
 
                     <div class="space-y-2">
-                        <label class="flex items-center text-sm font-semibold text-gray-800 mb-3">
+                        <label class="flex items-center text-base font-semibold text-gray-800 mb-3">
                             <i class="fas fa-hashtag text-gray-600 mr-2"></i>
                             เลขที่ใบส่งของ (KA)
                         </label>
                         <div class="relative w-full" ref="doCodeDropdown">
                             <input type="text" v-model="formData.doCode" @blur="formData.doCode = formData.tpmDoCode"
-                                ref="inputDoCode" @input="getListDelivery" placeholder="กรุณากรอกเลขที่ใบส่งของ" class="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-xl 
+                                ref="inputDoCode" @input="getListDelivery" placeholder="กรุณากรอกเลขที่ใบส่งของ" class="w-full px-4 py-2 text-base bg-white border border-gray-200 rounded-xl 
                                        focus:outline-none focus:ring-3 focus:ring-gray-500/20 focus:border-gray-500 
                                        transition-all duration-300 hover:border-gray-300">
 
@@ -38,7 +38,7 @@
                                         @mousedown.prevent="selectDocode(detail)"
                                         class="px-3 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0">
 
-                                        <div class="flex flex-col gap-1 text-sm">
+                                        <div class="flex flex-col gap-1 text-base">
                                             <div v-if="detail.code" class="flex">
                                                 <span class="font-bold text-gray-900 flex-shrink-0 w-28">เลขที่ใบส่งของ
                                                     :</span>
@@ -63,45 +63,45 @@
                                     </div>
                                 </div>
                                 <!-- ไม่พบข้อมูลใบส่งของ -->
-                                <div v-else class="px-3 py-2 text-gray-500 text-sm text-center">ไม่พบข้อมูลใบส่งของ
+                                <div v-else class="px-3 py-2 text-gray-500 text-base text-center">ไม่พบข้อมูลใบส่งของ
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="space-y-2">
-                        <label class="flex items-center text-sm font-semibold text-gray-800 mb-3">
+                        <label class="flex items-center text-base font-semibold text-gray-800 mb-3">
                             <i class="fa-solid fa-users text-gray-600 mr-2"></i>
                             ลูกค้า
                         </label>
                         <div class="relative">
-                            <input type="text" v-model="formData.customerName" placeholder="ลูกค้า" class="w-full px-4 py-3 text-sm bg-gray-100 border border-gray-200 rounded-xl 
+                            <input type="text" v-model="formData.customerName" placeholder="ลูกค้า" class="w-full px-4 py-2 text-base bg-gray-100 border border-gray-200 rounded-xl 
                                        focus:outline-none focus:ring-3 focus:ring-gray-500/20 focus:border-gray-500 
                                        transition-all duration-300 hover:border-gray-300" disabled>
                         </div>
                     </div>
                     <div class="space-y-2">
-                        <label class="flex items-center text-sm font-semibold text-gray-800 mb-3">
+                        <label class="flex items-center text-base font-semibold text-gray-800 mb-3">
                             <i class="fa-solid fa-location-crosshairs text-gray-600 mr-2"></i>
                             หน่วยงาน
                         </label>
                         <div class="relative">
                             <textarea v-model="project" rows="3" placeholder="หน่วยงาน"
-                                class="w-full px-4 py-3 text-sm bg-gray-100 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-300 hover:border-gray-300"
+                                class="w-full px-4 py-2 text-base bg-gray-100 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-300 hover:border-gray-300"
                                 disabled>
                             </textarea>
                         </div>
                     </div>
 
                     <div class="space-y-2">
-                        <label class="flex items-center text-sm font-semibold text-gray-800 mb-3">
+                        <label class="flex items-center text-base font-semibold text-gray-800 mb-3">
                             <i class="fa-solid fa-truck  text-gray-600 mr-2"></i>
                             ทะเบียนรถ
                         </label>
                         <div class="relative w-full" ref="carDropdown">
                             <input type="text" v-model="formData.licence_plate"
                                 @blur="formData.licence_plate = formData.tpmLicencePlate" ref="inputLicencePlate"
-                                @input="getListCar" placeholder="กรุณากรอกทะเบียนรถ" class="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-xl 
+                                @input="getListCar" placeholder="กรุณากรอกทะเบียนรถ" class="w-full px-4 py-2 text-base bg-white border border-gray-200 rounded-xl 
                                        focus:outline-none focus:ring-3 focus:ring-gray-500/20 focus:border-gray-500 
                                        transition-all duration-300 hover:border-gray-300">
 
@@ -113,7 +113,7 @@
                                     <div v-for="car in listCar" :key="car.id" @mousedown.prevent="selectCar(car)"
                                         class="px-3 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0">
 
-                                        <div class="flex flex-col gap-1 text-sm">
+                                        <div class="flex flex-col gap-1 text-base">
                                             <div v-if="car.licence_plate" class="flex">
                                                 <span class="font-bold text-gray-900 flex-shrink-0 w-28">ทะเบียน
                                                     :</span>
@@ -138,21 +138,21 @@
                                     </div>
                                 </div>
                                 <!-- ไม่พบข้อมูลใบส่งของ -->
-                                <div v-else class="px-3 py-2 text-gray-500 text-sm text-center">ไม่พบข้อมูลใบส่งของ
+                                <div v-else class="px-3 py-2 text-gray-500 text-base text-center">ไม่พบข้อมูลใบส่งของ
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Additional Info Card -->
-                    <div :class="gradientClass" class="rounded-xl p-4 border border-blue-200">
+                    <div :class="gradientClass" class="rounded-xl p-3 border border-blue-200">
                         <div class="flex items-center">
                             <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                                <i class="fas fa-info-circle text-blue-600 text-sm"></i>
+                                <i class="fas fa-info-circle text-blue-600 text-base"></i>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-blue-900">ข้อมูลเพิ่มเติม</p>
-                                <p class="text-xs text-blue-700">กรุณาตรวจสอบความถูกต้องของข้อมูลก่อนบันทึก</p>
+                                <p class="text-base font-medium text-blue-900">ข้อมูลเพิ่มเติม</p>
+                                <p class="text-sm text-blue-700">กรุณาตรวจสอบความถูกต้องของข้อมูลก่อนบันทึก</p>
                             </div>
                         </div>
                     </div>
@@ -161,12 +161,12 @@
                     <div class="flex space-x-3 pt-4">
                         <button type="submit"
                             class="cursor-pointer flex-1 bg-gray-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-gray-700 transition-colors duration-200 
-                                   focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2  border border-gray-200 shadow-sm">
+                                   focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2  border border-gray-200 shadow-base">
                             บันทึก
                         </button>
 
                         <button type="button" @click="resetForm" class="cursor-pointer px-4 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg 
-                                   hover:bg-gray-50 transition-colors duration-200 border border-gray-200 shadow-sm
+                                   hover:bg-gray-50 transition-colors duration-200 border border-gray-200 shadow-base
                                    focus:outline-none focus:ring-2 focus:ring-gray-300">
                             <i class="fas fa-undo text-xs"></i>
                         </button>

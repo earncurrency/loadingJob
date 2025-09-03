@@ -8,18 +8,12 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">รหัสพนักงาน</label>
-        <!-- <input v-model="form.code" ref="inputCode" placeholder="กรอกรหัสพนักงาน" type="text"
-          class="text-sm w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus-within:ring-offset-2" /> -->
+        <label class="block text-base font-medium text-gray-700 mb-1">รหัสพนักงาน</label>
 
         <input type="text" v-model="form.code" ref="inputCode" placeholder="กรอกรหัสพนักงาน"
-          class="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-300 hover:border-gray-300">
+          class="w-full px-4 py-2 text-base bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-300 hover:border-gray-300">
       </div>
-      <!-- <div class="mb-6">
-          <label class="block text-sm font-medium text-gray-700 mb-1">รหัสผ่าน</label>
-          <input v-model="form.password" ref="inputUserPassword" placeholder="กรอกรหัสผ่าน" type="password"
-            class="text-sm w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus-within:ring-offset-2" />
-        </div> -->
+
       <button @click="BtnLogin"
         class="w-full cursor-pointer flex-1 bg-gray-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
         เข้าสู่ระบบ
