@@ -40,7 +40,7 @@ export default defineConfig({
 
     __IMG_ICON__: JSON.stringify(
       process.env.NODE_ENV === 'production'
-        ? '/'
+        ? '/loadingJob/'
         : '/'
     ),
   }
