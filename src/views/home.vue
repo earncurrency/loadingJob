@@ -145,14 +145,14 @@
                     </div>
 
                     <!-- Additional Info Card -->
-                    <div :class="gradientClass" class="rounded-xl p-4 border border-gray-200">
+                    <div :class="gradientClass" class="rounded-xl p-4 border border-blue-200">
                         <div class="flex items-center">
-                            <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3">
-                                <i class="fas fa-info-circle text-gray-600 text-sm"></i>
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-info-circle text-blue-600 text-sm"></i>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-900">ข้อมูลเพิ่มเติม</p>
-                                <p class="text-xs text-gray-700">กรุณาตรวจสอบความถูกต้องของข้อมูลก่อนบันทึก</p>
+                                <p class="text-sm font-medium text-blue-900">ข้อมูลเพิ่มเติม</p>
+                                <p class="text-xs text-blue-700">กรุณาตรวจสอบความถูกต้องของข้อมูลก่อนบันทึก</p>
                             </div>
                         </div>
                     </div>
@@ -242,7 +242,7 @@ export default {
             const randomDirection = this.directions[Math.floor(Math.random() * this.directions.length)]
 
             // Set the gradient class with blue shades
-            this.gradientClass = `${randomDirection} from-zinc-100 via-white to-slate-100`
+            this.gradientClass = `${randomDirection} from-blue-100 via-white to-blue-100`
         },
 
         async getListDelivery() {

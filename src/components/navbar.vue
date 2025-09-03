@@ -17,11 +17,11 @@
                     </div>
                     <div v-show="isDropdownOpen"
                         class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-md z-20 border border-gray-300">
-                        <RouterLink to="/"
+                        <RouterLink to="/" @click="isDropdownOpen = false"
                             class="cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 duration-200">
                             <i class="fas fa-file-invoice mr-2"></i>เเบบฟอร์มบันทึก
                         </RouterLink>
-                        <RouterLink to="/history"
+                        <RouterLink to="/history" @click="isDropdownOpen = false"
                             class="cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 duration-200">
                             <i class="fa-solid fa-clock-rotate-left mr-2"></i>ประวัติการขึ้นสินค้า
                         </RouterLink>
