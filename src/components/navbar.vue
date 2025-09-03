@@ -42,19 +42,18 @@
         </div>
 
         <div v-show="isMobileMenuOpen"
-            class="mobile-menu absolute w-full md:hidden bg-white shadow-md border-t border-gray-300"
-            ref="mobileMenu">
+            class="mobile-menu absolute w-full md:hidden bg-white shadow-md border-t border-gray-300" ref="mobileMenu">
             <div class="flex items-center space-x-2 p-4 text-sm border-b border-gray-300">
                 <i class="fa-regular fa-user text-sm"></i>
                 <span class="text-gray-700 font-medium">{{ user.employeeName || "ชื่อผู้ใช้งาน" }}</span>
             </div>
-            <RouterLink to="/"
+            <RouterLink to="/" @click="isDropdownOpen = false"
                 class="block w-full text-left px-4 py-4 text-sm text-gray-700 hover:bg-gray-100 duration-200">
                 <i class="fas fa-file-invoice mr-2"></i>เเบบฟอร์มบันทึก
             </RouterLink>
-            <RouterLink to="/history"
+            <RouterLink to="/history" @click="isDropdownOpen = false"
                 class="block w-full text-left px-4 py-4 text-sm text-gray-700 hover:bg-gray-100 duration-200">
-                 <i class="fa-solid fa-clock-rotate-left mr-2"></i>ประวัติการขึ้นสินค้า
+                <i class="fa-solid fa-clock-rotate-left mr-2"></i>ประวัติการขึ้นสินค้า
             </RouterLink>
             <button @click="logout"
                 class="block w-full text-left px-4 py-4 text-sm text-red-700 hover:bg-gray-100 duration-200">
