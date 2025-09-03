@@ -14,6 +14,7 @@ export default defineConfig({
     tailwindcss(),
 
   ],
+  base: process.env.NODE_ENV === 'production' ? '/loadingJob/' : '',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
