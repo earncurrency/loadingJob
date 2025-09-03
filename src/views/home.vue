@@ -261,8 +261,6 @@ export default {
                 const data = response.data;
                 this.listDelivery = data.rows;
 
-                console.log("List Delivery :", this.listDelivery);
-
             } catch (error) {
                 console.error("Error :", error);
                 this.listDelivery = [];
@@ -277,7 +275,6 @@ export default {
             this.formData.projectAddress = detail.projectAddress;
             this.project = detail.projectCode + ' ' + detail.projectAddress;
             this.openListDelivery = false;
-            console.log("selected do code :", detail)
         },
 
         async getListCar() {
@@ -296,8 +293,6 @@ export default {
                 const data = response.data;
                 this.listCar = data.rows;
 
-                console.log("List Car :", this.listCar);
-
             } catch (error) {
                 console.error("Error :", error);
                 this.listCar = [];
@@ -308,7 +303,6 @@ export default {
             this.formData.licence_plate = car.licence_plate;
             this.formData.tpmLicencePlate = car.licence_plate;
             this.openListCar = false;
-            console.log("selected car :", car)
         },
 
         resetForm() {
@@ -359,10 +353,8 @@ export default {
                     licencePlate: this.formData.licence_plate,
                     employeeID: this.formData.employeeID,
                 };
-                console.log("submit :", dataLoadingJob)
 
                 const submitResponse = await axios.post("https://app.asiagroup1999.co.th/app/cst/loadingJob", dataLoadingJob);
-                // console.log("submitResponse :", submitResponse)
                 if (submitResponse.data.success == true) {
                     this.$refs.swl_modal.showAlertModal({
                         swlIcon: "success",

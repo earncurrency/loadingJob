@@ -86,8 +86,6 @@ export default {
                 .then((response) => {
                     const data = response.data;
                     this.listLoadingJob = data.rows;
-
-                    console.log("listLoadingJob by employee id :", this.listLoadingJob)
                 })
                 .catch((error) => {
                     console.error("เกิดข้อผิดพลาดในการเเสดงข้อมูล :", error);

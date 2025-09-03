@@ -10,7 +10,7 @@
     "scope": "/",
     "icons": [
         {
-            "src": "/LoadingJob.png",
+            "src": "LoadingJob.png",
             "sizes": "512x512",
             "type": "image/png"
         }

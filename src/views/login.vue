@@ -48,7 +48,6 @@ export default {
   },
   methods: {
     async BtnLogin() {
-      console.log("btn login")
       if (!this.form.code) {
         this.$refs.inputCode.focus();
         return;
@@ -62,13 +61,10 @@ export default {
           code: this.form.code,
         };
         const loginResponse = await axios.post("https://app.asiagroup1999.co.th/app/hr/employee?action=mrsLogin", postData);
-        console.log(loginResponse.data)
         if (loginResponse.data.success == true) {
           localStorage.setItem("loadingJobHash", loginResponse.data.hash);
           localStorage.setItem("loadingJobFullname", loginResponse.data.fullname);
 
-          console.log("loadingJobHash : ", localStorage.getItem("loadingJobHash"));
-          console.log("loadingJobFullname : ", localStorage.getItem("loadingJobFullname"));
           this.$router.push("/");
         }
         else {
