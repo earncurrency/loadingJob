@@ -107,11 +107,7 @@ export default {
             }
         },
         getDataUser() {
-            const storedHash = localStorage.getItem("loadingJobHash");
             this.user.employeeName = localStorage.getItem("loadingJobFullname");
-            if (storedHash) {
-                this.user.code = storedHash.split("-")[0];
-            }
         },
         logout() {
             localStorage.removeItem("loadingJobHash");

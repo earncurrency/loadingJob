@@ -6,11 +6,12 @@
             <!-- Header Card -->
             <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden mb-6">
                 <div class="bg-white px-6 py-8 text-center">
-                    <div class="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fa-solid fa-clock-rotate-left text-blue-600 text-2xl"></i>
+                    <div
+                        class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-200 shadow-sm">
+                        <i class="fa-solid fa-clock-rotate-left text-gray-600 text-2xl"></i>
                     </div>
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">ประวัติการขึ้นสินค้า</h2>
-                    <!-- <p class="text-gray-900 text-sm">{{ formData.fullname }}</p> -->
+                    <p v-if="employeeName" class="text-gray-900 text-sm">{{ employeeName }}</p>
                 </div>
             </div>
 
@@ -65,26 +66,27 @@ export default {
     data() {
         return {
             employeeID: 0,
+            employeeName:"",
             listLoadingJob: [],
         }
     },
     computed: {},
     mounted() {
-        this.setData();
+        this.getDataUser();
         this.getListLoadingJob();
     },
     methods: {
-        setData() {
+        getDataUser() {
             const loadingJobHash = localStorage.getItem("loadingJobHash");
             this.employeeID = loadingJobHash.split("-")[0];
-            console.log("employee id : ", this.employeeID)
+            this.employeeName = localStorage.getItem("loadingJobFullname");
         },
         async getListLoadingJob() {
             await axios.get("https://app.asiagroup1999.co.th/app/cst/loadingJob/?action=listLoadingJob&rows=10&employeeID=" + this.employeeID)
                 .then((response) => {
                     const data = response.data;
                     this.listLoadingJob = data.rows;
-                    
+
                     console.log("listLoadingJob by employee id :", this.listLoadingJob)
                 })
                 .catch((error) => {

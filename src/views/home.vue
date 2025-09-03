@@ -5,11 +5,12 @@
             <!-- Header Card -->
             <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden mb-6">
                 <div class="bg-white px-6 py-8 text-center">
-                    <div class="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-file-invoice text-blue-600 text-2xl"></i>
+                    <div
+                        class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4  border border-gray-200 shadow-sm">
+                        <i class="fas fa-file-invoice text-gray-600 text-2xl"></i>
                     </div>
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">บันทึกการขึ้นสินค้า</h2>
-                    <p class="text-gray-900 text-sm">{{ formData.employeeName }}</p>
+                    <p v-if="formData.employeeName" class="text-gray-900 text-sm">{{ formData.employeeName }}</p>
                 </div>
             </div>
 
@@ -42,7 +43,7 @@
                                                 <span class="font-bold text-gray-900 flex-shrink-0 w-28">เลขที่ใบส่งของ
                                                     :</span>
                                                 <span class="font-normal text-gray-700 break-words">{{ detail.code
-                                                }}</span>
+                                                    }}</span>
                                             </div>
 
                                             <div v-if="detail.customerName" class="flex">
@@ -81,7 +82,7 @@
                     </div>
                     <div class="space-y-2">
                         <label class="flex items-center text-sm font-semibold text-gray-800 mb-3">
-                            <i class="fas fa-hashtag text-gray-600 mr-2"></i>
+                            <i class="fa-solid fa-location-crosshairs text-gray-600 mr-2"></i>
                             หน่วยงาน
                         </label>
                         <div class="relative">
@@ -94,7 +95,7 @@
 
                     <div class="space-y-2">
                         <label class="flex items-center text-sm font-semibold text-gray-800 mb-3">
-                            <i class="fas fa-car text-gray-600 mr-2"></i>
+                            <i class="fa-solid fa-truck  text-gray-600 mr-2"></i>
                             ทะเบียนรถ
                         </label>
                         <div class="relative w-full" ref="carDropdown">
@@ -117,7 +118,7 @@
                                                 <span class="font-bold text-gray-900 flex-shrink-0 w-28">ทะเบียน
                                                     :</span>
                                                 <span class="font-normal text-gray-700 break-words">{{ car.licence_plate
-                                                }}</span>
+                                                    }}</span>
                                             </div>
 
                                             <div v-if="car.carTypeTitle" class="flex">
@@ -144,28 +145,28 @@
                     </div>
 
                     <!-- Additional Info Card -->
-                    <div :class="gradientClass" class="rounded-xl p-4 border border-blue-100">
+                    <div :class="gradientClass" class="rounded-xl p-4 border border-gray-200">
                         <div class="flex items-center">
-                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                                <i class="fas fa-info-circle text-blue-600 text-sm"></i>
+                            <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-info-circle text-gray-600 text-sm"></i>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-blue-900">ข้อมูลเพิ่มเติม</p>
-                                <p class="text-xs text-blue-700">กรุณาตรวจสอบความถูกต้องของข้อมูลก่อนบันทึก</p>
+                                <p class="text-sm font-medium text-gray-900">ข้อมูลเพิ่มเติม</p>
+                                <p class="text-xs text-gray-700">กรุณาตรวจสอบความถูกต้องของข้อมูลก่อนบันทึก</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Action Buttons -->
                     <div class="flex space-x-3 pt-4">
-                        <button type="submit" class="cursor-pointer flex-1 bg-blue-600 text-white font-medium py-2.5 px-4 rounded-lg 
-                                   hover:bg-blue-700 transition-colors duration-200 
-                                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        <button type="submit"
+                            class="cursor-pointer flex-1 bg-gray-600 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-gray-700 transition-colors duration-200 
+                                   focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2  border border-gray-200 shadow-sm">
                             บันทึก
                         </button>
 
                         <button type="button" @click="resetForm" class="cursor-pointer px-4 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg 
-                                   hover:bg-gray-50 transition-colors duration-200 
+                                   hover:bg-gray-50 transition-colors duration-200 border border-gray-200 shadow-sm
                                    focus:outline-none focus:ring-2 focus:ring-gray-300">
                             <i class="fas fa-undo text-xs"></i>
                         </button>
@@ -225,12 +226,11 @@ export default {
         };
     },
     mounted() {
-        this.setData();
+        this.getDataUser();
         this.generateRandomGradient()
     },
     methods: {
-        setData() {
-
+        getDataUser() {
             const loadingJobHash = localStorage.getItem("loadingJobHash");
             this.formData.employeeID = parseInt(loadingJobHash.split("-")[0]);
 
@@ -242,7 +242,7 @@ export default {
             const randomDirection = this.directions[Math.floor(Math.random() * this.directions.length)]
 
             // Set the gradient class with blue shades
-            this.gradientClass = `${randomDirection} from-gray-50 via-white to-indigo-50`
+            this.gradientClass = `${randomDirection} from-zinc-100 via-white to-slate-100`
         },
 
         async getListDelivery() {
@@ -376,7 +376,7 @@ export default {
                         swlTitle: "บันทึกไม่สำเร็จ",
                         swlText: `เกิดข้อผิดพลาดในการบันทึก`,
                     });
-                    console.error("การบันทึกไม่สำเร็จ:", submitResponse );
+                    console.error("การบันทึกไม่สำเร็จ:", submitResponse);
                 }
             } catch (error) {
                 this.$refs.swl_modal.showAlertModal({

@@ -23,7 +23,7 @@ export default {
       const randomDirection = this.directions[Math.floor(Math.random() * this.directions.length)]
 
       // Set the gradient class with blue shades
-      this.gradientClass = `${randomDirection} from-gray-50 via-white to-rose-50`
+      this.gradientClass = `${randomDirection} from-zinc-100 via-white to-slate-100`
     }
   },
   mounted() {
